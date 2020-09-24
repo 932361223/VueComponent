@@ -1,55 +1,63 @@
 <template>
   <div>
-    <label v-if="label">{{ label }}</label>
+    <!-- label -->
+    <label v-if="label">{{label}}</label>
+
     <slot></slot>
-    <p v-if="error">{{ error }}</p>
+
+    <!-- 校验信息显示 -->
+    <p v-if="error">{{error}}</p>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import Schema from 'async-validator'
+// Asyc-validator
+import Schema from "async-validator";
+
 export default {
-  inject:['form'],
+  inject: ["form"],
+  data() {
+    return {
+      error: "" // error是空说明校验通过
+    };
+  },
   props: {
     label: {
       type: String,
-      default: "",
+      default: ""
     },
-    prop:{
-      type: String,
-      default: "",
+    prop: {
+      type: String
     }
   },
-  components: {},
-  data() {
-    return {
-      error: "",
-    };
-  },
-  computed: {},
-  mounted () {
-    this.$on('validate',()=>{
-      this.validate()
-    })
+  mounted() {
+    this.$on("validate", () => {
+      this.validate();
+    });
   },
   methods: {
-    validate(){
-      const value=this.form.model[this.prop]
-      const rules=this.form.rules[this.prop]
-      const des={[this.prop]:rules}
-      const schema =new Schema(des)
-      return schema.validate({[this.prop]:value},errors=>{
-        if(errors){
-          this.error=errors[0].message
-        }else{
-          this.error=''
-        }
-      })
+    validate() {
+      // 规则
+      const rules = this.form.rules[this.prop];
+      // 当前值
+      const value = this.form.model[this.prop];
 
+      // 校验描述对象
+      const desc = { [this.prop]: rules };
+      // 创建Schema实例
+      const schema = new Schema(desc);
+      return schema.validate({ [this.prop]: value }, errors => {
+        if (errors) {
+          this.error = errors[0].message;
+        } else {
+          // 校验通过
+          this.error = "";
+        }
+      });
     }
   }
 };
 </script>
+
 <style scoped>
 </style>
