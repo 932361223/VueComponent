@@ -23,11 +23,12 @@
 <script>
 // import ElementTest from "@/components/form/ElementTest.vue";
 import KInput from "@/components/form/Kinput.vue";
-import KFormItem from "@/components/form/KFormItem.vue";
+import KFormItem from "@/components/form/kFormItem.vue";
 import KForm from "@/components/form/KForm.vue";
-import Notice from "@/components/Notice.vue";
+// import Notice from "@/components/Notice.vue";
 
 export default {
+  name:'index',
   data() {
     return {
       userInfo: {
@@ -49,7 +50,7 @@ export default {
   methods: {
     login() {
       this.$refs["loginForm"].validate(valid => {
-        const notice = this.$create(Notice, {
+        const notice = this.$notice({
           title: "",
           message: valid ? "检验成功!" : "校验失败!",
           duration: 2000

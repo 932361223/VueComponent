@@ -13,8 +13,11 @@
 <script>
 // Asyc-validator
 import Schema from "async-validator";
-
+import emitter from '@/mixins/emitter.js'
 export default {
+  mixins: [emitter],
+  name:'KFormItem',
+  componentName:'KFormItem',
   inject: ["form"],
   data() {
     return {
@@ -34,6 +37,10 @@ export default {
     this.$on("validate", () => {
       this.validate();
     });
+    // 有prop才检验
+    if(this.prop){
+    this.dispatch('KForm','form.addField',[this])
+    }
   },
   methods: {
     validate() {
