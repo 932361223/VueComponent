@@ -3,7 +3,9 @@ let Vue
 class KVueRouter {
 	constructor(options) {
 		this.$options = options
-		this.current = '/'
+		// 下面创建了，不需要了
+		// this.current = '/'
+
 		// 需要创建响应式的current属性
 		// 利用Vue提供的defineReactive做响应化
 		// 这样将来current变化的时候，依赖的组件会重新render
@@ -15,7 +17,6 @@ class KVueRouter {
 		//     }
 		//   }
 		// })	
-
 		// 监控url变化
 		window.addEventListener('hashchange', this.onHashChange.bind(this))
 		window.addEventListener('load', this.onHashChange.bind(this))
@@ -35,13 +36,14 @@ class KVueRouter {
 }
 
 KVueRouter.install = function (_Vue) {
-	// 保存构造函数，在KVueRouter里面使用
+	// 保存构造函数，在KVueRouter里面使用 
 	Vue = _Vue
 	// 挂载$router
-	// 怎么获取根实例中的router选项
+	// 怎么获取根实例中的router选项 
 	Vue.mixin({
 		beforeCreate() {
 			// 确保根实例的时候才执行
+			// $options.router在main中挂载全局
 			if (this.$options.router) {
 				console.log(this.$options);
 				Vue.prototype.$router = this.$options.router
@@ -57,6 +59,7 @@ KVueRouter.install = function (_Vue) {
 			}
 		},
 		render(h) {
+			console.log(this.$slots);
 			return h('a', { attrs: { href: '#' + this.to } }, this.$slots.default)
 			// return <a href={'#' + this.to}>{this.$slots.default}</a>
 		}

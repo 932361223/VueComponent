@@ -21,6 +21,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  // 传给constructor的option
   routes
 })
 
