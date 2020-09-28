@@ -18,6 +18,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // 解构上下文
     add({ commit }) {
       setTimeout(() => {
         commit('add')
