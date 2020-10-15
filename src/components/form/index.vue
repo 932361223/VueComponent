@@ -6,7 +6,7 @@
     <k-form :model="userInfo" :rules="rules" ref="loginForm">
       <!-- 用户名 -->
       <k-formItem label="用户名" prop="username">
-        <KInput v-model="userInfo.username" placeholder="请输入用户名"></KInput>
+        <k-input v-model="userInfo.username" placeholder="请输入用户名"></k-input>
       </k-formItem>
       <!-- 密码 -->
       <k-formItem label="密码" prop="password">
