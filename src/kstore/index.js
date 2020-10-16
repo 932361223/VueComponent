@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    counter:0
+    counter: 0
   },
   getters: {
     doubleCounter(state) {
-      return state*2
+      return state.counter * 2
     }
   },
   mutations: {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    // 解构上下文
+    // 解构上下文 commit，dispatch,state
     add({ commit }) {
       setTimeout(() => {
         commit('add')
